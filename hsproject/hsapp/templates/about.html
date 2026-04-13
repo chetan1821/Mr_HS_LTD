@@ -1,0 +1,170 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}About Us{% endblock %}
+
+{% block content %}
+
+<!-- HERO -->
+<section class="about-hero text-center py-4">
+    <div class="container">
+        <h1 class="fw-bold">About Mr.HS Ltd</h1>
+        <p class="about-hero-text mt-3">
+            Trusted financial solutions for long-term growth and success.
+        </p>
+    </div>
+</section>
+
+<!-- ABOUT CONTENT -->
+<section class="py-5">
+    <div class="container">
+        <div class="row align-items-center g-5">    
+
+            <div class="col-md-6 text-center">
+                <div class="about-img-wrapper">
+                    <img src="/static/images/logo.png" class="about-img" alt="about">
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <h2 class="fw-bold">Who We Are</h2>
+                <p class="text-muted mt-3">
+                    Mr.HS Ltd is a trusted provider of financial and business services in India.
+                    We specialize in Mutual Funds, Insurance, Financial Planning, and Business Support.
+                </p>
+
+                <p class="text-muted">
+                    Our goal is to help individuals and businesses grow their wealth with transparency,
+                    expert advice, and long-term strategies.
+                </p>
+
+                <a href="#" class="btn btn-warning mt-3 px-4">Learn More</a>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- MISSION / VISION -->
+<section class="py-5 bg-light">
+    <div class="container">
+
+        <div class="row g-4 text-center">
+
+            <div class="col-md-6">
+                <div class="info-card p-4 h-100">
+                    <i class="bi bi-bullseye info-icon"></i>
+                    <h5 class="fw-bold mt-3">Our Mission</h5>
+                    <p class="text-muted">
+                        To provide reliable financial solutions that help clients achieve long-term growth.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="info-card p-4 h-100">
+                    <i class="bi bi-eye info-icon"></i>
+                    <h5 class="fw-bold mt-3">Our Vision</h5>
+                    <p class="text-muted">
+                        To become a leading financial service provider known for trust and excellence.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+<!-- WHY CHOOSE US -->
+<section class="py-5">
+    <div class="container">
+
+        <div class="text-center mb-5">
+            <h2 class="fw-bold">Why Choose Us</h2>
+        </div>
+
+        <div class="row g-4 text-center">
+
+            <div class="col-md-3">
+                <div class="feature-box p-4">
+                    <i class="bi bi-person-check feature-icon"></i>
+                    <h6 class="fw-bold mt-3">Expert Advisors</h6>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="feature-box p-4">
+                    <i class="bi bi-shield-check feature-icon"></i>
+                    <h6 class="fw-bold mt-3">Secure Services</h6>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="feature-box p-4">
+                    <i class="bi bi-graph-up feature-icon"></i>
+                    <h6 class="fw-bold mt-3">Growth Focused</h6>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="feature-box p-4">
+                    <i class="bi bi-headset feature-icon"></i>
+                    <h6 class="fw-bold mt-3">24/7 Support</h6>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+<section class="py-5">
+<div class="row text-center">
+
+    <div class="col-md-6">
+        <div class="card p-4 shadow">
+            <h5>NIFTY 50</h5>
+
+            {% if nifty %}
+                <h2 class="text-success">
+                    {{ nifty.regularMarketPrice|default:"N/A" }}
+                </h2>
+                <p>
+                    {{ nifty.regularMarketChange|default:"0" }}
+                    ({{ nifty.regularMarketChangePercent|default:"0" }}%)
+                </p>
+            {% else %}
+                <p>Data not available</p>
+            {% endif %}
+
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card p-4 shadow">
+            <h5>SENSEX</h5>
+
+            {% if sensex %}
+                <h2 class="text-danger">
+                    {{ sensex.regularMarketPrice|default:"N/A" }}
+                </h2>
+                <p>
+                    {{ sensex.regularMarketChange|default:"0" }}
+                    ({{ sensex.regularMarketChangePercent|default:"0" }}%)
+                </p>
+            {% else %}
+                <p>Data not available</p>
+            {% endif %}
+
+        </div>
+    </div>
+
+</div>
+</section>
+
+
+<!-- CTA -->
+
+
+{% endblock %}
