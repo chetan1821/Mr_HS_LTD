@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}InvestPro{% endblock %}</title>
-    <link rel="stylesheet" href="/static/css/style.css">
+    <!-- <link rel="stylesheet" href="/static/css/style.css"> -->
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
     <script src="/static/js/script.js"></script>
 
     <!-- Google Font -->
@@ -114,10 +115,12 @@
                     </a>
 
                     <ul class="dropdown-menu shadow border-0">
-                        <li><a class="dropdown-item" href="#">Accounting Services</a></li>
+                        <li><a class="dropdown-item" href="{% url 'services_ac'%}">Accounting Services</a></li>
                         <li><a class="dropdown-item" href="#">CSC Centre</a></li>
-                        <li><a class="dropdown-item" href="#">Investments</a></li>
+                        <li><a class="dropdown-item" href="{% url 'investment'%}">Investments</a></li>
                         <li><a class="dropdown-item" href="#">Insurance</a></li>
+                        <li><a class="dropdown-item" href="#">Job & Placement</a></li>
+
                     </ul>
                 </li>
 

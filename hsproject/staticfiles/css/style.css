@@ -539,3 +539,204 @@
     background-color: #ffba42;
     transform: translateY(-2px);
 }
+
+
+/* SECTION */
+.portal-section {
+    background: linear-gradient(135deg, #f5f7fa, #ffffff);
+}
+
+/* TITLE */
+.portal-title {
+    font-size: 36px;
+    font-weight: 700;
+    color: #0d1b2a;
+}
+
+.portal-subtitle {
+    font-size: 17px;
+    color: #6c757d;
+}
+
+/* LINE */
+.portal-line {
+    width: 70px;
+    height: 4px;
+    background: linear-gradient(90deg, #3a86ff, #000000);
+    margin: 12px auto;
+    border-radius: 3px;
+}
+
+/* CARD */
+.portal-card-pro {
+    background: #ffffff;
+    padding: 30px 22px;
+    border-radius: 18px;
+    text-align: center;
+    transition: all 0.35s ease;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.06);
+    position: relative;
+    overflow: hidden;
+    height: 100%;
+    border: 1px solid #eef1f4;
+}
+
+/* HOVER BACKGROUND (BLUE → BLACK) */
+.portal-card-pro::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #3a86ff, #000000);
+    opacity: 0;
+    transition: 0.4s;
+}
+
+/* KEEP CONTENT ABOVE */
+.portal-card-pro * {
+    position: relative;
+    z-index: 1;
+}
+
+/* HOVER */
+.portal-card-pro:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 30px 60px rgba(0,0,0,0.2);
+}
+
+.portal-card-pro:hover::before {
+    opacity: 1;
+}
+
+/* ICON */
+.icon-box {
+    width: 70px;
+    height: 70px;
+    margin: auto;
+    border-radius: 50%;
+    background: #eef3f8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 18px;
+    transition: 0.4s;
+}
+
+.icon-box i {
+    font-size: 30px;
+    color: #1b263b;
+}
+
+/* ICON HOVER */
+.portal-card-pro:hover .icon-box {
+    background: #ffffff;
+    transform: scale(1.1) rotate(8deg);
+}
+
+.portal-card-pro:hover .icon-box i {
+    color: #3a86ff;
+}
+
+/* TITLE TEXT */
+.portal-card-pro h5 {
+    font-size: 19px;
+    font-weight: 600;
+    color: #0d1b2a;
+}
+
+/* DESCRIPTION */
+.portal-card-pro p {
+    font-size: 14px;
+    color: #6c757d;
+    margin-bottom: 12px;
+}
+
+/* BUTTON */
+.portal-link {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #3a86ff;
+    border: 1px solid #3a86ff;
+    padding: 6px 14px;
+    border-radius: 6px;
+    transition: 0.3s;
+}
+
+/* BUTTON HOVER */
+.portal-link:hover {
+    background: #3a86ff;
+    color: #fff;
+}
+
+/* TEXT ON HOVER */
+.portal-card-pro:hover h5,
+.portal-card-pro:hover p {
+    color: #ffffff;
+}
+
+
+/* Invesment page CSS */
+/* SECTION */
+.investment-section {
+    background: linear-gradient(135deg, #f5f7fa, #ffffff);
+}
+
+/* TITLE */
+.invest-title {
+    font-size: 36px;
+    color: #0d1b2a;
+}
+
+/* FILTER BUTTON */
+.filter-btn {
+    border: none;
+    background: #eef3f8;
+    padding: 8px 16px;
+    margin: 5px;
+    border-radius: 20px;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.filter-btn.active,
+.filter-btn:hover {
+    background: #3a86ff;
+    color: #fff;
+}
+
+/* CARD */
+.calc-card {
+    background: #fff;
+    padding: 30px;
+    border-radius: 16px;
+    text-align: center;
+    transition: 0.3s;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.06);
+}
+
+/* ICON */
+.calc-card i {
+    font-size: 32px;
+    color: #3a86ff;
+    margin-bottom: 10px;
+}
+
+/* HOVER */
+.calc-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+}
+
+/* TEXT */
+.calc-card h5 {
+    font-weight: 600;
+}
+
+.calc-card p {
+    font-size: 14px;
+    color: #6c757d;
+}
+
+
+

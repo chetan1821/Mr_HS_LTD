@@ -1,0 +1,604 @@
+{% comment %} -*- coding: utf-8 -*- {% endcomment %}
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- Main Section -->
+<section class="py-5" style="background: linear-gradient(135deg, #0d1b2a 0%, #1a2f4a 100%); min-height: 100vh;">
+<div class="container">
+
+    <!-- Header -->
+    <div class="text-center mb-5">
+        <div class="mb-4">
+            <i class="bi bi-graph-up-arrow" style="font-size: 3rem; color: #fca311;"></i>
+        </div>
+        <h1 class="fw-bold mb-3" style="color: white; font-size: 2.8rem;">SIP Calculator</h1>
+        <p class="text-light" style="font-size: 1.1rem; opacity: 0.9;">Plan your wealth with our intelligent investment calculator</p>
+    </div>
+
+    <!-- Main Content -->
+    <div class="row g-4 align-items-start">
+
+        <!-- LEFT SIDE - INPUT FORM -->
+        <div class="col-lg-5">
+
+            <!-- Input Card -->
+            <div class="card border-0 shadow-lg" style="border-radius: 25px; overflow: hidden; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px);">
+                
+                <!-- Card Header -->
+                <div class="card-header border-0" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 30px; border-radius: 25px 25px 0 0;">
+                    <h5 class="mb-0 fw-bold text-white d-flex align-items-center gap-2">
+                        <i class="bi bi-sliders"></i> Adjust Your Parameters
+                    </h5>
+                </div>
+
+                <!-- Card Body -->
+                <div class="card-body p-5">
+
+                    <!-- Monthly Investment -->
+                    <div class="mb-5">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <div>
+                                <label class="form-label fw-bold mb-1" style="color: #0d1b2a; font-size: 1rem;">
+                                    <i class="bi bi-wallet2" style="color: #667eea;"></i> Monthly Investment
+                                </label>
+                                <small class="text-muted d-block">&#8377;500 - &#8377;1,00,000</small>
+                            </div>
+                            <div class="badge bg-gradient" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); font-size: 1rem; padding: 8px 12px;">
+                                &#8377;<span id="amountValue">5000</span>
+                            </div>
+                        </div>
+                        <div class="d-flex gap-3 align-items-center">
+                            <input type="range" id="amount" min="500" max="100000" step="500" value="5000" class="form-range" style="height: 8px; flex: 1; accent-color: #667eea;">
+                            <input type="number" id="amountInput" min="500" max="100000" step="500" value="5000" class="form-control form-control-sm fw-bold" style="width: 90px; border-radius: 10px; border: 2px solid #667eea; text-align: center;">
+                        </div>
+                    </div>
+
+                    <!-- Expected Return Rate -->
+                    <div class="mb-5">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <div>
+                                <label class="form-label fw-bold mb-1" style="color: #0d1b2a; font-size: 1rem;">
+                                    <i class="bi bi-percent" style="color: #28a745;"></i> Expected Annual Return
+                                </label>
+                                <small class="text-muted d-block">1% - 30% Per Annum</small>
+                            </div>
+                            <div class="badge bg-success" style="font-size: 1rem; padding: 8px 12px;">
+                                <span id="rateValue">12</span>%
+                            </div>
+                        </div>
+                        <div class="d-flex gap-3 align-items-center">
+                            <input type="range" id="rate" min="1" max="30" value="12" class="form-range" style="height: 8px; flex: 1; accent-color: #28a745;">
+                            <input type="number" id="rateInput" min="1" max="30" value="12" class="form-control form-control-sm fw-bold" style="width: 90px; border-radius: 10px; border: 2px solid #28a745; text-align: center;">
+                        </div>
+                    </div>
+
+                    <!-- Time Period -->
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <div>
+                                <label class="form-label fw-bold mb-1" style="color: #0d1b2a; font-size: 1rem;">
+                                    <i class="bi bi-calendar-event" style="color: #ffc107;"></i> Investment Period
+                                </label>
+                                <small class="text-muted d-block">1 - 40 Years</small>
+                            </div>
+                            <div class="badge bg-warning text-dark fw-bold" style="font-size: 1rem; padding: 8px 12px;">
+                                <span id="yearsValue">10</span> Yrs
+                            </div>
+                        </div>
+                        <div class="d-flex gap-3 align-items-center">
+                            <input type="range" id="years" min="1" max="40" value="10" class="form-range" style="height: 8px; flex: 1; accent-color: #ffc107;">
+                            <input type="number" id="yearsInput" min="1" max="40" value="10" class="form-control form-control-sm fw-bold" style="width: 90px; border-radius: 10px; border: 2px solid #ffc107; text-align: center;">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <!-- RIGHT SIDE - RESULTS & CHART -->
+        <div class="col-lg-7">
+
+            <!-- Results Summary Card -->
+            <div class="card border-0 shadow-lg mb-4" style="border-radius: 25px; overflow: hidden; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+                
+                <div class="card-body p-5">
+
+                    <!-- Summary Grid -->
+                    <div class="row g-4 mb-4">
+                        <!-- Invested Amount -->
+                        <div class="col-md-6">
+                            <div class="p-4" style="background: rgba(255,255,255,0.15); border-radius: 20px; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2);">
+                                <div class="d-flex align-items-center mb-3">
+                                    <i class="bi bi-cash-coin" style="font-size: 1.5rem; margin-right: 10px; opacity: 0.8;"></i>
+                                    <p class="mb-0 fw-bold" style="opacity: 0.9;">Invested Amount</p>
+                                </div>
+                                <h3 class="fw-bold mb-0" style="font-size: 1.8rem;">&#8377;<span id="invested">0</span></h3>
+                            </div>
+                        </div>
+                        <!-- Returns -->
+                        <div class="col-md-6">
+                            <div class="p-4" style="background: rgba(255,255,255,0.15); border-radius: 20px; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2);">
+                                <div class="d-flex align-items-center mb-3">
+                                    <i class="bi bi-graph-up" style="font-size: 1.5rem; margin-right: 10px; opacity: 0.8;"></i>
+                                    <p class="mb-0 fw-bold" style="opacity: 0.9;">Estimated Gains</p>
+                                </div>
+                                <h3 class="fw-bold mb-0" style="font-size: 1.8rem;">&#8377;<span id="returns">0</span></h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Total Value Highlight -->
+                    <div class="p-4 text-center" style="background: rgba(255,255,255,0.2); border-radius: 20px; backdrop-filter: blur(10px); border: 2px solid rgba(255,255,255,0.3);">
+                        <p class="mb-2 fw-bold" style="opacity: 0.9; font-size: 0.95rem;">
+                            <i class="bi bi-star-fill" style="color: #fca311;"></i> Total Value After <span id="yearsDisplay">10</span> Years
+                        </p>
+                        <h2 class="fw-bold mb-0" style="font-size: 2.5rem; background: linear-gradient(135deg, #fca311 0%, #fff 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+                            &#8377;<span id="total">0</span>
+                        </h2>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Chart Card -->
+            <div class="card border-0 shadow-lg" style="border-radius: 25px; overflow: hidden;">
+                <div class="card-header border-0 p-4" style="background: linear-gradient(135deg, #f5f7fa 0%, #e8eef7 100%);">
+                    <h6 class="mb-0 fw-bold text-dark d-flex align-items-center gap-2">
+                        <i class="bi bi-pie-chart" style="color: #667eea;"></i> Wealth Composition
+                    </h6>
+                </div>
+                <div class="card-body p-5">
+                    <div style="position: relative; height: 300px;">
+                        <canvas id="sipChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+</section>
+
+<!-- Custom Styles -->
+<style>
+    .bg-gradient {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+
+    .form-range::-webkit-slider-thumb {
+        cursor: pointer;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    .form-range::-moz-range-thumb {
+        cursor: pointer;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    .form-control {
+        transition: all 0.3s ease;
+    }
+
+    .form-control:focus {
+        box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+        border-color: #667eea;
+    }
+
+    .badge {
+        font-weight: 600;
+        letter-spacing: 0.5px;
+    }
+</style>
+
+<script>
+let sipChart = null;
+
+// Format number with commas
+function formatNumber(num) {
+    return Math.round(num).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+// Sync slider and input fields
+function syncSliderToInput() {
+    document.getElementById("amount").addEventListener("input", function() {
+        document.getElementById("amountInput").value = this.value;
+        calculateSIP();
+    });
+    
+    document.getElementById("rate").addEventListener("input", function() {
+        document.getElementById("rateInput").value = this.value;
+        calculateSIP();
+    });
+    
+    document.getElementById("years").addEventListener("input", function() {
+        document.getElementById("yearsInput").value = this.value;
+        calculateSIP();
+    });
+}
+
+function syncInputToSlider() {
+    document.getElementById("amountInput").addEventListener("input", function() {
+        let val = parseFloat(this.value) || 0;
+        if (val >= 500 && val <= 100000) {
+            document.getElementById("amount").value = val;
+        }
+        calculateSIP();
+    });
+    
+    document.getElementById("rateInput").addEventListener("input", function() {
+        let val = parseFloat(this.value) || 0;
+        if (val >= 1 && val <= 30) {
+            document.getElementById("rate").value = val;
+        }
+        calculateSIP();
+    });
+    
+    document.getElementById("yearsInput").addEventListener("input", function() {
+        let val = parseFloat(this.value) || 0;
+        if (val >= 1 && val <= 40) {
+            document.getElementById("years").value = val;
+        }
+        calculateSIP();
+    });
+}
+
+// Main calculation function
+function calculateSIP() {
+    try {
+        // Get input values from sliders
+        const amount = document.getElementById("amount");
+        const rate = document.getElementById("rate");
+        const years = document.getElementById("years");
+
+        if (!amount || !rate || !years) {
+            console.error("Input elements not found");
+            return;
+        }
+
+        let P = parseFloat(amount.value) || 0;
+        let r_annual = parseFloat(rate.value) || 0;
+        let t = parseFloat(years.value) || 0;
+
+        // Update badge values
+        document.getElementById("amountValue").textContent = formatNumber(P);
+        document.getElementById("rateValue").textContent = r_annual;
+        document.getElementById("yearsValue").textContent = t;
+        document.getElementById("yearsDisplay").textContent = t;
+
+        // Calculate using SIP formula
+        let r = r_annual / 12 / 100;  // Monthly rate
+        let n = t * 12;                // Number of months
+
+        let futureValue = 0;
+        if (r > 0) {
+            futureValue = P * ((Math.pow(1 + r, n) - 1) / r) * (1 + r);
+        } else {
+            futureValue = P * n;
+        }
+
+        let investedAmount = P * n;
+        let gainAmount = futureValue - investedAmount;
+
+        // Update results
+        document.getElementById("invested").textContent = formatNumber(investedAmount);
+        document.getElementById("returns").textContent = formatNumber(gainAmount);
+        document.getElementById("total").textContent = formatNumber(futureValue);
+
+        // Update chart
+        createChart(investedAmount, gainAmount);
+
+    } catch (error) {
+        console.error("Calculation error:", error);
+    }
+}
+
+// Create and update chart
+function createChart(invested, gains) {
+    try {
+        const chartCanvas = document.getElementById("sipChart");
+        if (!chartCanvas) {
+            console.error("Chart canvas not found");
+            return;
+        }
+
+        // Destroy existing chart
+        if (sipChart) {
+            sipChart.destroy();
+        }
+
+        // Create new chart
+        sipChart = new Chart(chartCanvas, {
+            type: 'doughnut',
+            data: {
+                labels: ['Invested Amount', 'Estimated Gains'],
+                datasets: [
+                    {
+                        data: [invested, gains],
+                        backgroundColor: ['#667eea', '#fca311'],
+                        borderColor: ['#667eea', '#fca311'],
+                        borderWidth: 0,
+                        hoverBorderWidth: 2,
+                        hoverBorderColor: '#fff'
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            font: { size: 13, weight: 'bold', family: "Poppins" },
+                            padding: 20,
+                            usePointStyle: true,
+                            pointStyle: 'circle',
+                            color: '#333'
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(0,0,0,0.8)',
+                        padding: 12,
+                        titleFont: { size: 13, weight: 'bold' },
+                        bodyFont: { size: 12 },
+                        callbacks: {
+                            label: function(context) {
+                                return '&#8377; ' + formatNumber(context.parsed);
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    } catch (error) {
+        console.error("Chart error:", error);
+    }
+}
+
+// Initialize calculator
+function initSIPCalculator() {
+    try {
+        // Get input elements
+        const amountInput = document.getElementById("amount");
+        const rateInput = document.getElementById("rate");
+        const yearsInput = document.getElementById("years");
+        const amountTextInput = document.getElementById("amountInput");
+        const rateTextInput = document.getElementById("rateInput");
+        const yearsTextInput = document.getElementById("yearsInput");
+
+        if (!amountInput || !rateInput || !yearsInput || !amountTextInput || !rateTextInput || !yearsTextInput) {
+            console.error("Required input elements not found");
+            return;
+        }
+
+        // Sync slider to text input
+        syncSliderToInput();
+        
+        // Sync text input to slider
+        syncInputToSlider();
+
+        // Run initial calculation
+        calculateSIP();
+        console.log("✓ SIP Calculator initialized with premium UI");
+
+    } catch (error) {
+        console.error("Initialization error:", error);
+    }
+}
+
+// Wait for DOM and Chart.js to be ready
+window.addEventListener('load', initSIPCalculator);
+
+// Also try to init if document is already loaded
+if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    initSIPCalculator();
+}
+</script>
+
+{% endblock %}
+
+<script>
+let sipChart = null;
+
+// Format number with commas
+function formatNumber(num) {
+    return Math.round(num).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+// Sync slider and input fields
+function syncSliderToInput() {
+    document.getElementById("amount").addEventListener("input", function() {
+        document.getElementById("amountInput").value = this.value;
+        calculateSIP();
+    });
+    
+    document.getElementById("rate").addEventListener("input", function() {
+        document.getElementById("rateInput").value = this.value;
+        calculateSIP();
+    });
+    
+    document.getElementById("years").addEventListener("input", function() {
+        document.getElementById("yearsInput").value = this.value;
+        calculateSIP();
+    });
+}
+
+function syncInputToSlider() {
+    document.getElementById("amountInput").addEventListener("input", function() {
+        let val = parseFloat(this.value) || 0;
+        if (val >= 500 && val <= 100000) {
+            document.getElementById("amount").value = val;
+        }
+        calculateSIP();
+    });
+    
+    document.getElementById("rateInput").addEventListener("input", function() {
+        let val = parseFloat(this.value) || 0;
+        if (val >= 1 && val <= 30) {
+            document.getElementById("rate").value = val;
+        }
+        calculateSIP();
+    });
+    
+    document.getElementById("yearsInput").addEventListener("input", function() {
+        let val = parseFloat(this.value) || 0;
+        if (val >= 1 && val <= 40) {
+            document.getElementById("years").value = val;
+        }
+        calculateSIP();
+    });
+}
+
+// Main calculation function
+function calculateSIP() {
+    try {
+        // Get input values from sliders
+        const amount = document.getElementById("amount");
+        const rate = document.getElementById("rate");
+        const years = document.getElementById("years");
+
+        if (!amount || !rate || !years) {
+            console.error("Input elements not found");
+            return;
+        }
+
+        let P = parseFloat(amount.value) || 0;
+        let r_annual = parseFloat(rate.value) || 0;
+        let t = parseFloat(years.value) || 0;
+
+        // Update badge values
+        document.getElementById("amountValue").textContent = formatNumber(P);
+        document.getElementById("rateValue").textContent = r_annual;
+        document.getElementById("yearsValue").textContent = t;
+        document.getElementById("yearsDisplay").textContent = t;
+
+        // Calculate using SIP formula
+        let r = r_annual / 12 / 100;  // Monthly rate
+        let n = t * 12;                // Number of months
+
+        let futureValue = 0;
+        if (r > 0) {
+            futureValue = P * ((Math.pow(1 + r, n) - 1) / r) * (1 + r);
+        } else {
+            futureValue = P * n;
+        }
+
+        let investedAmount = P * n;
+        let gainAmount = futureValue - investedAmount;
+
+        // Update results
+        document.getElementById("invested").textContent = formatNumber(investedAmount);
+        document.getElementById("returns").textContent = formatNumber(gainAmount);
+        document.getElementById("total").textContent = formatNumber(futureValue);
+
+        // Update chart
+        createChart(investedAmount, gainAmount);
+
+    } catch (error) {
+        console.error("Calculation error:", error);
+    }
+}
+
+// Create and update chart
+function createChart(invested, gains) {
+    try {
+        const chartCanvas = document.getElementById("sipChart");
+        if (!chartCanvas) {
+            console.error("Chart canvas not found");
+            return;
+        }
+
+        // Destroy existing chart
+        if (sipChart) {
+            sipChart.destroy();
+        }
+
+        // Create new chart
+        sipChart = new Chart(chartCanvas, {
+            type: 'doughnut',
+            data: {
+                labels: ['Invested', 'Returns'],
+                datasets: [
+                    {
+                        data: [invested, gains],
+                        backgroundColor: ['#667eea', '#fca311'],
+                        borderColor: ['#667eea', '#fca311'],
+                        borderWidth: 2
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            font: { size: 12, weight: 'bold' },
+                            padding: 15
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return '&#8377; ' + formatNumber(context.parsed);
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    } catch (error) {
+        console.error("Chart error:", error);
+    }
+}
+
+// Initialize calculator
+function initSIPCalculator() {
+    try {
+        // Get input elements
+        const amountInput = document.getElementById("amount");
+        const rateInput = document.getElementById("rate");
+        const yearsInput = document.getElementById("years");
+        const amountTextInput = document.getElementById("amountInput");
+        const rateTextInput = document.getElementById("rateInput");
+        const yearsTextInput = document.getElementById("yearsInput");
+
+        if (!amountInput || !rateInput || !yearsInput || !amountTextInput || !rateTextInput || !yearsTextInput) {
+            console.error("Required input elements not found");
+            return;
+        }
+
+        // Sync slider to text input
+        syncSliderToInput();
+        
+        // Sync text input to slider
+        syncInputToSlider();
+
+        // Run initial calculation
+        calculateSIP();
+        console.log("✓ SIP Calculator with dual inputs initialized successfully");
+
+    } catch (error) {
+        console.error("Initialization error:", error);
+    }
+}
+
+// Wait for DOM and Chart.js to be ready
+window.addEventListener('load', initSIPCalculator);
+
+// Also try to init if document is already loaded
+if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    initSIPCalculator();
+}
+</script>
+
+{% endblock %}

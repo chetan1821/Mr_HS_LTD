@@ -10,6 +10,12 @@ def index(request):
     return render(request,"index.html")
 def about(request):
     return render(request,"about.html")
+def services_ac(request):
+    return render(request,"services_ac.html")
+def investment(request):
+    return render(request,"investment.html")
+def sip_calculator(request):
+    return render(request, "sip_calculator.html")
 
 
 
@@ -44,8 +50,5 @@ def market(request):
         {"price_": price,
         "change": change})
 
-def abc(request):
-    all="chetan"
-    print(all)
-    return render(request,"abc.html",{"data":all})
+
 

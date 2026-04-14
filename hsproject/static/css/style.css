@@ -539,3 +539,40 @@
     background-color: #ffba42;
     transform: translateY(-2px);
 }
+
+
+/*  */
+.sip-bg {
+    background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+}
+
+.sip-card {
+    border-radius: 15px;
+    border: 1px solid #e2e8f0;
+    background: #ffffff;
+    transition: 0.3s;
+}
+
+.sip-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.main-icon {
+    font-size: 2.5rem;
+    color: #2563eb;
+}
+
+.sub-text {
+    color: #64748b;
+    font-size: 0.9rem;
+}
+
+.form-control {
+    border-radius: 10px;
+    text-align: center;
+}
+
+.form-range {
+    accent-color: #2563eb;
+}

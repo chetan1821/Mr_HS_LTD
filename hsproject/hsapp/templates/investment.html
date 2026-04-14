@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Services{% endblock %}
+
+{% block content %}
+<section class="investment-section py-5">
+    <div class="container">
+
+        <!-- Heading -->
+        <div class="text-center mb-5">
+            <h2 class="fw-bold invest-title">Investment Calculators</h2>
+            <p class="text-muted">Plan your financial future with smart tools</p>
+        </div>
+
+        <!-- FILTER BUTTONS -->
+        <div class="text-center mb-4">
+            <button class="filter-btn active" onclick="filterCards('all')">All</button>
+            <button class="filter-btn" onclick="filterCards('investment')">Investment</button>
+            <button class="filter-btn" onclick="filterCards('loan')">Loan</button>
+        </div>
+
+        <!-- CARDS -->
+        <div class="row g-4">
+
+            <!-- SIP -->
+            
+            <div class="col-md-4 filter-item investment">
+        <a href="{% url 'sip_calculator' %}" class="text-decoration-none">
+        <div class="calc-card">
+            <i class="bi bi-graph-up"></i>
+            <h5>SIP Calculator</h5>
+            <p>Calculate your monthly investment returns.</p>
+        </div>
+        </a>
+</div>
+
+            <!-- Lumpsum -->
+            <div class="col-md-4 filter-item investment">
+                <div class="calc-card">
+                    <i class="bi bi-cash"></i>
+                    <h5>Lumpsum Calculator</h5>
+                    <p>Estimate one-time investment returns.</p>
+                </div>
+            </div>
+
+            <!-- FD -->
+            <div class="col-md-4 filter-item investment">
+                <div class="calc-card">
+                    <i class="bi bi-bank"></i>
+                    <h5>FD Calculator</h5>
+                    <p>Check fixed deposit maturity value.</p>
+                </div>
+            </div>
+
+            <!-- RD -->
+            <div class="col-md-4 filter-item investment">
+                <div class="calc-card">
+                    <i class="bi bi-piggy-bank"></i>
+                    <h5>RD Calculator</h5>
+                    <p>Recurring deposit returns calculation.</p>
+                </div>
+            </div>
+
+            <!-- EMI -->
+            <div class="col-md-4 filter-item loan">
+                <div class="calc-card">
+                    <i class="bi bi-house"></i>
+                    <h5>EMI Calculator</h5>
+                    <p>Calculate your loan EMI easily.</p>
+                </div>
+            </div>
+
+            <!-- CAGR -->
+            <div class="col-md-4 filter-item investment">
+                <div class="calc-card">
+                    <i class="bi bi-bar-chart"></i>
+                    <h5>CAGR Calculator</h5>
+                    <p>Measure investment growth rate.</p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+{% endblock %}
